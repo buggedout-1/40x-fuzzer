@@ -25,7 +25,7 @@ Before running the tool, you must install **ffuf** and the required Python libra
    pip install -r requirements.txt
 
 3. **Usage**:
-   `python ffuf.py -l <url_list.txt> -w <wordlist.txt> -o <output_file.txt>`
+   `python 40x-fuzzer.py -l <url_list.txt> -w <wordlist.txt> -o <output_file.txt>`
 
    -l <url_list.txt>: Path to the file containing URLs to test (one URL per line).  
    -w <wordlist.txt>: Path to the wordlist file (one word per line).  
