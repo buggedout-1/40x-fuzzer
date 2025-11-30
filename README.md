@@ -1,38 +1,64 @@
-# 40X-FUZZER Tool
+```
+    __ __  ____  _  __     ______ __  __ _____ _____ ______ _____
+   /  |  \/  _ \| |/ /    |  ____| |  | |___  |___  |  ____|  __ \
+  /   |  | | | |   /  ____| |__  | |  | |  / /   / /| |__  | |__) |
+ / /| |  | | | |  <  |____||  __| | |  | | / /   / / |  __| |  _  /
+/ / |   /| |_| |   \       | |    | |__| |/ /__ / /__| |____| | \ \
+\/  |__/ \____/|__|\_\     |_|     \____/|_____|_____|______|_|  \_\
 
-This is a Python-based tool for running **ffuf** fuzzing on multiple URLs using a wordlist. It processes a list of URLs with the **ffuf** tool and checks for valid responses, outputting results to a file. The tool also supports showing progress with a live URL counter.
+                         [ 403 Bypass Fuzzer ]
+                      github.com/buggedout-1/40x-fuzzer
+```
 
-### Description
+# 40X-FUZZER
 
-40X-FUZZER is designed to automate the process of running **ffuf** across a list of URLs and a wordlist, making it easier for users to perform directory or parameter fuzzing on multiple websites at once. The results are saved to an output file, with only relevant information displayed (e.g., URLs that return 200 status codes).
+> Batch fuzzing tool to discover hidden paths and bypass 403/401 restrictions using ffuf
 
-### Requirements
+## Features
 
-Before running the tool, you must install **ffuf** and the required Python libraries.
+- Batch process multiple URLs from a file
+- Live progress counter
+- Clean output with full URLs
+- Customizable wordlist and output file
 
-- **ffuf**: [https://github.com/ffuf/ffuf](https://github.com/ffuf/ffuf)
-- Python 3.6+ (ensure that Python and pip are installed)
+## Requirements
 
-### Installation
+- [ffuf](https://github.com/ffuf/ffuf) installed and in PATH
+- Python 3.6+
 
-1. **Install ffuf**:
-   - Follow the installation instructions on the [ffuf GitHub page](https://github.com/ffuf/ffuf) to install `ffuf` on your system.
+## Installation
 
-2. **Clone the repository**:
-   ```bash
-   git clone https://github.com/buggedout-1/40x-fuzzer.git
-   cd 40x-fuzzer
-   pip install -r requirements.txt
+```bash
+git clone https://github.com/buggedout-1/40x-fuzzer.git
+cd 40x-fuzzer
+pip install -r requirements.txt
+```
 
-3. **Usage**:
-   `python 40x-fuzzer.py -l <url_list.txt> -w <wordlist.txt> -o <output_file.txt>`
+## Usage
 
-   -l <url_list.txt>: Path to the file containing URLs to test (one URL per line).  
-   -w <wordlist.txt>: Path to the wordlist file (one word per line).  
-   -o <output_file.txt>: Path to the output file to save the results (e.g., 400-bypassed.txt).
+```bash
+python 40x-fuzzer.py -l <url_list.txt> -w <wordlist.txt> -o <output_file.txt>
+```
 
+| Flag | Description |
+|------|-------------|
+| `-l` | Path to file containing target URLs (one per line) |
+| `-w` | Path to wordlist file |
+| `-o` | Output file for results (default: `403-bypassed.txt`) |
 
-**Best way to use**:  
-`subfinder -d domain.com -o subs.txt`  
-`httpx -l subs.txt -mc 401,402,403,404 -o 400.txt`  
-`python 40x-fuzzer.py -l subs.txt -w fuzz.txt -o 400-bypassed.txt`
+## Recommended Workflow
+
+```bash
+# 1. Find subdomains
+subfinder -d target.com -o subs.txt
+
+# 2. Filter for 40x responses
+httpx -l subs.txt -mc 401,402,403,404 -o 40x.txt
+
+# 3. Fuzz for bypasses
+python 40x-fuzzer.py -l 40x.txt -w fuzz.txt -o bypassed.txt
+```
+
+## License
+
+MIT
