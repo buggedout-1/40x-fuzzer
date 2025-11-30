@@ -1,8 +1,3 @@
-```
-                         [ 403 Bypass Fuzzer ]
-                      github.com/buggedout-1/40x-fuzzer
-```
-
 # 40X-FUZZER
 
 > Batch fuzzing tool to discover hidden paths and bypass 403/401 restrictions using ffuf
